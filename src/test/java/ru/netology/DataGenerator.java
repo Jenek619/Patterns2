@@ -12,13 +12,14 @@ import java.util.Locale;
 import static io.restassured.RestAssured.given;
 
 public class DataGenerator {
+
     private static RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
             .setPort(9999)
             .setAccept(ContentType.JSON)
             .setContentType(ContentType.JSON)
             .log(LogDetail.ALL)
-            .build(200);
+            .build();
 
     private static final Faker faker = new Faker(new Locale("en"));
 
@@ -31,7 +32,8 @@ public class DataGenerator {
                 .body(user)
                 .when()
                 .post("/api/system/users")
-                .statusCode();
+                .then()
+                .statusCode(200);
     }
 
     public static String getRandomLogin() {
